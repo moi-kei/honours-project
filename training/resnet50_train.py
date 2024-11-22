@@ -4,16 +4,15 @@ from tensorflow.keras.applications import ResNet50
 from tensorflow.keras.layers import Dense, Flatten
 from tensorflow.keras.models import Model
 
-# Parameters
-IMG_SIZE = 224  # ResNet50 input size
-BATCH_SIZE = 32
-NUM_CLASSES = 10  # Number of classes in Animals10
 
-# Paths
+IMG_SIZE = 224  
+BATCH_SIZE = 32
+NUM_CLASSES = 10  
+
+
 TRAIN_DIR = "C:/Users/micha/OneDrive/Desktop/honours-main/honours-main/training/animals10/train"  # Replace with actual path to train directory
 VAL_DIR = "C:/Users/micha/OneDrive/Desktop/honours-main/honours-main/training/animals10/val"  # Replace with actual path to validation directory
 
-# Data Augmentation and Generators
 train_datagen = ImageDataGenerator(
     rescale=1.0/255,
     rotation_range=20,
@@ -41,25 +40,16 @@ val_generator = val_datagen.flow_from_directory(
     class_mode='categorical'
 )
 
-# Load Pre-trained ResNet50 Model
 base_model = ResNet50(weights='imagenet', include_top=False, input_shape=(IMG_SIZE, IMG_SIZE, 3))
-
-# Freeze the base model
 base_model.trainable = False
-
-# Add custom layers on top
 x = Flatten()(base_model.output)
 x = Dense(512, activation='relu')(x)
 x = Dense(NUM_CLASSES, activation='softmax')(x)
-
 model = Model(inputs=base_model.input, outputs=x)
-
-# Compile the model
 model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=0.001),
               loss='categorical_crossentropy',
               metrics=['accuracy'])
 
-# Train the model
 model.fit(
     train_generator,
     validation_data=val_generator,
@@ -68,7 +58,6 @@ model.fit(
     validation_steps=val_generator.samples // BATCH_SIZE
 )
 
-# Fine-tune the model
 base_model.trainable = True
 model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=0.0001),
               loss='categorical_crossentropy',
@@ -82,5 +71,4 @@ model.fit(
     validation_steps=val_generator.samples // BATCH_SIZE
 )
 
-# Save the trained model
 model.save("resnet50_transfer_learning_model.h5")
