@@ -45,6 +45,6 @@ def visualize_highlighted_features(img_path, features, original_img, num_feature
     plt.show()
 
 if __name__ == "__main__":
-    img_path = 'C:/Users/micha/OneDrive/Desktop/honours-main/honours-main/feature_extraction/stingray.jpg'
+    img_path = 'stingray.jpg'
     features, original_img = extract_features_and_model(img_path)
     visualize_highlighted_features(img_path, features, original_img, num_feature_maps=60)
