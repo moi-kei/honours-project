@@ -46,6 +46,6 @@ def visualize_multiple_overlays(img_path, features, num_feature_maps=4):
     plt.show()
 
 if __name__ == "__main__":
-    img_path = 'C:/Users/micha/OneDrive/Desktop/honours-main/honours-main/feature_extraction/stingray.jpg'
+    img_path = 'stingray.jpg'
     features = extract_features(img_path)
     visualize_multiple_overlays(img_path, features, num_feature_maps=8)
