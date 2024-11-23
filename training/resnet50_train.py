@@ -10,8 +10,8 @@ BATCH_SIZE = 32
 NUM_CLASSES = 10  
 
 
-TRAIN_DIR = "C:/Users/micha/OneDrive/Desktop/honours-main/honours-main/training/animals10/train"  # Replace with actual path to train directory
-VAL_DIR = "C:/Users/micha/OneDrive/Desktop/honours-main/honours-main/training/animals10/val"  # Replace with actual path to validation directory
+TRAIN_DIR = "C:/Users/micha/OneDrive/Desktop/honours-main/honours-main/training/animals10/train"  
+VAL_DIR = "C:/Users/micha/OneDrive/Desktop/honours-main/honours-main/training/animals10/val"  
 
 train_datagen = ImageDataGenerator(
     rescale=1.0/255,
